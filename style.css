@@ -1,33 +1,10 @@
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.main-content {
-    margin-top: 5vh;
-    display: flex;
-    flex-direction: row;
-    gap: 5vh;
-}
-
-.left-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1vh;
-    align-self: center;
-}
-
 .container {
-    height: 500px;
     width: 500px;
+    height: 500px;
     border: 1px solid black;
-    box-shadow: 1px 1px 5px #333;
     display: grid;
 }
 
-button {
-    height: 30px;
-    width: 100px;
+.hovered {
+
 }

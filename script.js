@@ -1,54 +1,64 @@
-const container = document.querySelector(".container");
-const clears = document.querySelector("#clear");
-let number = 256;
+function createGrid(sum) {
+    let numberOfDivs = sum * sum;
+    gridNumber = numberOfDivs;
 
-
-function createGridItems(variable) {
-    number = variable * variable;
-    container.style.gridTemplateColumns = `repeat(${variable}, 1fr`;
-    if(number == 0) {
-        alert("Please enter a number bigger than 0!");
+    for(let i = 0; numberOfDivs > i; i++) {
+        const div = document.createElement(`div`);
+        div.dataset.divId = `${i}`;
+        divContainer.append(div);
+        addEvent(div);
     }
-    else {
-        for(let i = 0; number > i; i++) {
-            const gridItem = document.createElement("div");
-            gridItem.setAttribute('id', `item-${i}`);
-            container.append(gridItem);
-        }
-    }
+    divContainer.style.gridTemplateColumns = `repeat(${sum}, 1fr)`;
 }
 
-function clear() {
-    for(let i = 0; number > i; i++) {
-        let gridItem = document.getElementById(`item-${i}`);
-        gridItem.style.backgroundColor = "white";
+function addEvent(tag) {
+    const colorPick = document.querySelector("#color");
+    let color = colorPick.value;
+
+    colorPick.addEventListener("change", (e) => {
+        return color = e.target.value;
+    });
+
+    tag.addEventListener('mouseover', () => {
+        tag.classList.add('hovered');
+        tag.style.backgroundColor = color;
+    })
+}
+
+function clearGrid() {
+    for(let i = 0; gridNumber > i; i++) {
+        const div = document.querySelector(`div[data-div-id="${i}"]`);
+        div.classList.remove('hovered');
     }
 }
 
 function changeGrid() {
-    for(let i = 0; number > i; i++) {
-        var gridItem = document.getElementById(`item-${i}`);
-        gridItem.remove();
+    let number = prompt("Set the grid row x column number :) MAX NUMBER 100");
+
+    if(number > 100) number = prompt("Please set a number less than or equal 100");
+    if(number < 0) number = prompt("Please choose a number higher than 0!");
+
+    for(let i = 0; gridNumber > i; i++) {
+        const div = document.querySelector(`div[data-div-id="${i}"]`);
+        div.remove();
     }
-    number = parseInt(prompt("Please write a number between 1 and 100."));
-    if(number === 0) {
-        prompt("Please enter a number bigger than 1!");
-        changeGrid();
-    } else if(number > 100) {
-        prompt("Please enter a number smaller than 100!");
-        changeGrid();
-    } else {
-        createGridItems(number);
-    }
+
+    createGrid(number);
 }
 
-createGridItems(16);
+function colorPick() {
 
-container.addEventListener("mouseover", (e) => {
-    e.target.style.backgroundColor = "#669";
-    container.style.backgroundColor = "white";
-})
+}
 
-clears.addEventListener("click", (e) => {
-    clear();
-})
+const divContainer = document.querySelector(".container");
+const colorClass = document.querySelector(".hovered");
+const resetGrid = document.querySelector(".reset");
+const changeGridBtn = document.querySelector(".grid");
+
+let gridNumber = 0;
+
+resetGrid.addEventListener("click", clearGrid);
+
+changeGridBtn.addEventListener("click", changeGrid);
+
+createGrid(16);
